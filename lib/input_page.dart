@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:bmi/icon_content.dart';
+import 'package:bmi/reusable_card.dart';
 
 const bottomContainerHeight = 80.0;
 const activeCardColour = Color(0xFF1D1E33);
+const inactiveCardColour = Color(0xFF1D1333);
 const bottomContainerColour = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
@@ -10,6 +14,18 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+
+  Color maleCardColour = inactiveCardColour;
+  Color femaleCardColour = inactiveCardColour;
+
+  void updateColour(int gender) {
+    if (gender == 1) {
+      if (maleCardColour == inactiveCardColour) {
+        maleCardColour == activeCardColour;
+      } else {maleCardColour == inactiveCardColour;}
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,50 +38,51 @@ class _InputPageState extends State<InputPage> {
               child: Row(
             children: [
               Expanded(
-                child: ReusabeCard(activeCardColour),
+                child: GestureDetector(onTap: () {
+                  setState(() {
+                    updateColour(1);
+                  });
+                },
+                  child: ReusabeCard(
+                    colour: maleCardColour,
+                    cardChild: IconContent(label: "MALE",icon: FontAwesomeIcons.mars,),
+                  ),
+                ),
               ),
               Expanded(
-                child: ReusabeCard(activeCardColour),
+                child: ReusabeCard(
+                  colour: activeCardColour,
+                  cardChild: IconContent(label: "FEMALE",icon: FontAwesomeIcons.venus,),
+                ),
               )
             ],
           )),
           Expanded(
-            child: ReusabeCard(activeCardColour),
+            child: ReusabeCard(colour: activeCardColour),
           ),
           Expanded(
               child: Row(
             children: [
               Expanded(
-                child: ReusabeCard(activeCardColour),
+                child: ReusabeCard(colour: activeCardColour),
               ),
               Expanded(
-                child: ReusabeCard(activeCardColour),
+                child: ReusabeCard(colour: activeCardColour),
               )
             ],
           )),
-          Container(color:bottomContainerColour,
-          margin: EdgeInsets.only(top: 10.0),
-          height:bottomContainerHeight,
-          width: double.infinity,)
+          Container(
+            color: bottomContainerColour,
+            margin: EdgeInsets.only(top: 10.0),
+            height: bottomContainerHeight,
+            width: double.infinity,
+          )
         ],
       ),
     );
   }
 }
 
-class ReusabeCard extends StatelessWidget {
 
-  ReusabeCard(@required this.colour);
 
-  final Color colour;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    );
-  }
-}
+
