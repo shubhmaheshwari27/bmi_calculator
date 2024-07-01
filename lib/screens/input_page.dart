@@ -20,7 +20,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-  int height = 180;
+  double height = 1.80;
   int weight = 60;
   int age = 20;
 
@@ -86,10 +86,10 @@ class _InputPageState extends State<InputPage> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        height.toString(),
+                        height.toStringAsFixed(2),
                         style: kNumberTextStyle,
                       ),
-                      Text('cm'),
+                      Text('m'),
                     ],
                   ),
                   SliderTheme(
@@ -103,12 +103,12 @@ class _InputPageState extends State<InputPage> {
                       overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
                     ),
                     child: Slider(
-                        value: height.toDouble(),
-                        min: 120.0,
-                        max: 240.0,
+                        value: height,
+                        min: 0.6,
+                        max: 2.4,
                         onChanged: (double newValue) {
                           setState(() {
-                            height = newValue.round();
+                            height = newValue;
                           });
                         }),
                   )
